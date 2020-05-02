@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'animate/animate_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -26,6 +28,9 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      routes: {
+        "animate":(_)=> AnimatePage(),
+      },
       home: HomePage(),
     );
   }
