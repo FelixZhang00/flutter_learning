@@ -9,8 +9,13 @@ class AnimatePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Animate"),
       ),
-      body: Center(
-        child: Text("Hello"),
+      body: Column(
+        children: [
+          ListTile(
+            title: Text("Implicit Animations"),
+            onTap: ()=> Navigator.of(context).pushNamed("animate_implicit"),
+          )
+        ],
       ),
     );
   }

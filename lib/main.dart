@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'animate/animate_implicit_page.dart';
 import 'animate/animate_page.dart';
 
 void main() {
@@ -30,11 +31,13 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "animate":(_)=> AnimatePage(),
+        "animate_implicit":(_)=> AnimateImplicitPage(),
       },
       home: HomePage(),
     );
   }
 }
+
 
 class HomePage extends StatelessWidget {
   @override
