@@ -18,6 +18,10 @@ class AnimatePage extends StatelessWidget {
           ListTile(
             title: Text("TweenAnimationBuilder"),
             onTap: ()=> Navigator.of(context).pushNamed("animate_tween"),
+          ),
+          ListTile(
+            title: Text("TweenAnimationBuilder ColorFilter"),
+            onTap: ()=> Navigator.of(context).pushNamed("animate_tween_colorfilter"),
           )
         ],
       ),
