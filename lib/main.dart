@@ -6,6 +6,7 @@ import 'animate/animate_page.dart';
 import 'animate/animate_transition_page.dart';
 import 'animate/animate_tween_colorfilter_page.dart';
 import 'animate/animate_tween_simple_page.dart';
+import 'animate/animate_widget_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         "animate_tween_colorfilter":(_)=> AnimateTweenColorFilterPage(),
         "animate_transition" : (_)=> AnimateTransitionPage(),
         "animate_builder" : (_)=> AnimateBuilderPage(),
+        "animate_widget" : (_)=> AnimateWidgetDemoPage(),
       },
       home: HomePage(),
     );
