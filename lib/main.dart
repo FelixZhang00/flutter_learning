@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'animate/animate_implicit_page.dart';
 import 'animate/animate_page.dart';
+import 'animate/animate_tween_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "animate":(_)=> AnimatePage(),
         "animate_implicit":(_)=> AnimateImplicitPage(),
+        "animate_tween":(_)=> AnimateTweenPage(),
       },
       home: HomePage(),
     );

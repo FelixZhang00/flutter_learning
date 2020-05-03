@@ -14,6 +14,10 @@ class AnimatePage extends StatelessWidget {
           ListTile(
             title: Text("Implicit Animations"),
             onTap: ()=> Navigator.of(context).pushNamed("animate_implicit"),
+          ),
+          ListTile(
+            title: Text("TweenAnimationBuilder"),
+            onTap: ()=> Navigator.of(context).pushNamed("animate_tween"),
           )
         ],
       ),
