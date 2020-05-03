@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'animate/animate_builder_page.dart';
 import 'animate/animate_implicit_page.dart';
 import 'animate/animate_page.dart';
 import 'animate/animate_transition_page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         "animate_tween":(_)=> AnimateTweenPage(),
         "animate_tween_colorfilter":(_)=> AnimateTweenColorFilterPage(),
         "animate_transition" : (_)=> AnimateTransitionPage(),
+        "animate_builder" : (_)=> AnimateBuilderPage(),
       },
       home: HomePage(),
     );

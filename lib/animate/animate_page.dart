@@ -26,6 +26,10 @@ class AnimatePage extends StatelessWidget {
           ListTile(
             title: Text("Transition widgets"),
             onTap: ()=> Navigator.of(context).pushNamed("animate_transition"),
+          ),
+          ListTile(
+            title: Text("Animate Builder"),
+            onTap: ()=> Navigator.of(context).pushNamed("animate_builder"),
           )
         ],
       ),
