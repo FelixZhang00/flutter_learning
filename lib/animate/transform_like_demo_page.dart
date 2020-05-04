@@ -117,12 +117,84 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
       setState(() {});
     });
 
+    //icons
     pushIconLikeUp = Tween(begin: 30.0, end: 60.0).animate(
       CurvedAnimation(parent: animControlBox, curve: Interval(0.0, 0.5)),
     );
     zoomIconLike = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: animControlBox, curve: Interval(0.0, 0.5)),
     );
+    pushIconLoveUp = Tween(begin: 30.0, end: 60.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.1, 0.6)),
+    );
+    zoomIconLove = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.1, 0.6)),
+    );
+
+    pushIconHahaUp = Tween(begin: 30.0, end: 60.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.2, 0.7)),
+    );
+    zoomIconHaha = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.2, 0.7)),
+    );
+
+    pushIconWowUp = Tween(begin: 30.0, end: 60.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.3, 0.8)),
+    );
+    zoomIconWow = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.3, 0.8)),
+    );
+
+    pushIconSadUp = Tween(begin: 30.0, end: 60.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.4, 0.9)),
+    );
+    zoomIconSad = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.4, 0.9)),
+    );
+
+    pushIconAngryUp = Tween(begin: 30.0, end: 60.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.5, 1.0)),
+    );
+    zoomIconAngry = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animControlBox, curve: Interval(0.5, 1.0)),
+    );
+
+    pushIconLikeUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconLike.addListener(() {
+      setState(() {});
+    });
+    pushIconLoveUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconLove.addListener(() {
+      setState(() {});
+    });
+    pushIconHahaUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconHaha.addListener(() {
+      setState(() {});
+    });
+    pushIconWowUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconWow.addListener(() {
+      setState(() {});
+    });
+    pushIconSadUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconSad.addListener(() {
+      setState(() {});
+    });
+    pushIconAngryUp.addListener(() {
+      setState(() {});
+    });
+    zoomIconAngry.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -185,10 +257,11 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
       margin: EdgeInsets.only(left: this.moveRightGroupIcon.value, top: 50.0),
       child: Row(
         children: [
+          //icon like
           Transform.scale(
             scale: this.zoomIconLike.value,
             child: Container(
-              margin: EdgeInsets.only(bottom: 60),
+              margin: EdgeInsets.only(bottom: pushIconLikeUp.value, left: 4),
               width: 40.0,
               height: 40,
               child: Column(
@@ -217,7 +290,182 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                 ],
               ),
             ),
-          )
+          ),
+
+          // icon love
+          Transform.scale(
+            child: Container(
+              margin: EdgeInsets.only(bottom: pushIconLoveUp.value, left: 4),
+              width: 40.0,
+              height: currentIconFocus == 2 ? 70.0 : 40.0,
+              child: Column(
+                children: <Widget>[
+                  currentIconFocus == 2
+                      ? Container(
+                          child: Text(
+                            'Love',
+                            style:
+                                TextStyle(fontSize: 8.0, color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.black.withOpacity(0.3)),
+                          padding: EdgeInsets.only(
+                              left: 7.0, right: 7.0, top: 2.0, bottom: 2.0),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                        )
+                      : Container(),
+                  Image.asset(
+                    'assets/love.gif',
+                    width: 40.0,
+                    height: 40.0,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+            scale: this.zoomIconLove.value,
+          ),
+
+          // icon haha
+          Transform.scale(
+            child: Container(
+              margin: EdgeInsets.only(bottom: pushIconHahaUp.value, left: 4),
+              width: 40.0,
+              height: currentIconFocus == 3 ? 70.0 : 40.0,
+              child: Column(
+                children: <Widget>[
+                  currentIconFocus == 3
+                      ? Container(
+                          child: Text(
+                            'Haha',
+                            style:
+                                TextStyle(fontSize: 8.0, color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.black.withOpacity(0.3)),
+                          padding: EdgeInsets.only(
+                              left: 7.0, right: 7.0, top: 2.0, bottom: 2.0),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                        )
+                      : Container(),
+                  Image.asset(
+                    'assets/haha.gif',
+                    width: 40.0,
+                    height: 40.0,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+            scale: this.zoomIconHaha.value,
+          ),
+
+          // icon wow
+          Transform.scale(
+            child: Container(
+              margin: EdgeInsets.only(bottom: pushIconWowUp.value, left: 4),
+              width: 40.0,
+              height: currentIconFocus == 4 ? 70.0 : 40.0,
+              child: Column(
+                children: <Widget>[
+                  currentIconFocus == 4
+                      ? Container(
+                          child: Text(
+                            'Wow',
+                            style:
+                                TextStyle(fontSize: 8.0, color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.black.withOpacity(0.3)),
+                          padding: EdgeInsets.only(
+                              left: 7.0, right: 7.0, top: 2.0, bottom: 2.0),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                        )
+                      : Container(),
+                  Image.asset(
+                    'assets/wow.gif',
+                    width: 40.0,
+                    height: 40.0,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+            scale: this.zoomIconWow.value,
+          ),
+
+          // icon sad
+          Transform.scale(
+            child: Container(
+              margin: EdgeInsets.only(bottom: pushIconSadUp.value, left: 4),
+              width: 40.0,
+              height: currentIconFocus == 5 ? 70.0 : 40.0,
+              child: Column(
+                children: <Widget>[
+                  currentIconFocus == 5
+                      ? Container(
+                          child: Text(
+                            'Sad',
+                            style:
+                                TextStyle(fontSize: 8.0, color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.black.withOpacity(0.3)),
+                          padding: EdgeInsets.only(
+                              left: 7.0, right: 7.0, top: 2.0, bottom: 2.0),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                        )
+                      : Container(),
+                  Image.asset(
+                    'assets/sad.gif',
+                    width: 40.0,
+                    height: 40.0,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+            scale: this.zoomIconSad.value,
+          ),
+
+          // icon angry
+          Transform.scale(
+            child: Container(
+              margin: EdgeInsets.only(bottom: pushIconAngryUp.value, left: 4),
+              width: 40.0,
+              height: currentIconFocus == 6 ? 70.0 : 40.0,
+              child: Column(
+                children: <Widget>[
+                  currentIconFocus == 6
+                      ? Container(
+                          child: Text(
+                            'Angry',
+                            style:
+                                TextStyle(fontSize: 8.0, color: Colors.white),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.black.withOpacity(0.3)),
+                          padding: EdgeInsets.only(
+                              left: 7.0, right: 7.0, top: 2.0, bottom: 2.0),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                        )
+                      : Container(),
+                  Image.asset(
+                    'assets/angry.gif',
+                    width: 40.0,
+                    height: 40.0,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+            scale: this.zoomIconAngry.value,
+          ),
         ],
       ),
     );
