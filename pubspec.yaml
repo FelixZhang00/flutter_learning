@@ -82,6 +82,17 @@ flutter:
     - assets/ufo.png
     - assets/ic_like.png
     - assets/ic_like_fill.png
+    - assets/like.gif
+    - assets/love.gif
+    - assets/haha.gif
+    - assets/wow.gif
+    - assets/sad.gif
+    - assets/angry.gif
+    - assets/angry2.png
+    - assets/love2.png
+    - assets/haha2.png
+    - assets/wow2.png
+    - assets/sad2.png
 
     - sounds/box_down.mp3
     - sounds/box_up.mp3
