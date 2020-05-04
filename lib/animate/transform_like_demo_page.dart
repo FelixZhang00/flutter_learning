@@ -98,6 +98,18 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     initAnimationBox();
 
     initAnimationIconWhenDrag();
+
+    // Icon when drag outside
+    initAnimationIconWhenDragOutside();
+
+    // Box when drag outside
+    initAnimationBoxWhenDragOutside();
+
+    // Icon when first drag
+    initAnimationIconWhenDragInside();
+
+    // Icon when release
+    initAnimationIconWhenRelease();
   }
 
   void initAnimationBtnLike() {
@@ -254,6 +266,98 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     });
   }
 
+  initAnimationIconWhenDragOutside() {
+    animControlIconWhenDragOutside =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    zoomIconWhenDragOutside =
+        Tween(begin: 0.8, end: 1.0).animate(animControlIconWhenDragOutside);
+    zoomIconWhenDragOutside.addListener(() {
+      setState(() {});
+    });
+  }
+
+  initAnimationBoxWhenDragOutside() {
+    animControlBoxWhenDragOutside =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    zoomBoxWhenDragOutside =
+        Tween(begin: 40.0, end: 50.0).animate(animControlBoxWhenDragOutside);
+    zoomBoxWhenDragOutside.addListener(() {
+      setState(() {});
+    });
+  }
+
+  initAnimationIconWhenDragInside() {
+    animControlIconWhenDragInside =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    zoomIconWhenDragInside =
+        Tween(begin: 1.0, end: 0.8).animate(animControlIconWhenDragInside);
+    zoomIconWhenDragInside.addListener(() {
+      setState(() {});
+    });
+    animControlIconWhenDragInside.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        isJustDragInside = false;
+      }
+    });
+  }
+
+  initAnimationIconWhenRelease() {
+    animControlIconWhenRelease =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+
+    zoomIconWhenRelease = Tween(begin: 1.8, end: 0.0).animate(CurvedAnimation(
+        parent: animControlIconWhenRelease, curve: Curves.decelerate));
+
+    moveUpIconWhenRelease = Tween(begin: 180.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+
+    moveLeftIconLikeWhenRelease = Tween(begin: 20.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+    moveLeftIconLoveWhenRelease = Tween(begin: 68.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+    moveLeftIconHahaWhenRelease = Tween(begin: 116.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+    moveLeftIconWowWhenRelease = Tween(begin: 164.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+    moveLeftIconSadWhenRelease = Tween(begin: 212.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+    moveLeftIconAngryWhenRelease = Tween(begin: 260.0, end: 10.0).animate(
+        CurvedAnimation(
+            parent: animControlIconWhenRelease, curve: Curves.decelerate));
+
+    zoomIconWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveUpIconWhenRelease.addListener(() {
+      setState(() {});
+    });
+
+    moveLeftIconLikeWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveLeftIconLoveWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveLeftIconHahaWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveLeftIconWowWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveLeftIconSadWhenRelease.addListener(() {
+      setState(() {});
+    });
+    moveLeftIconAngryWhenRelease.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   void dispose() {
     _animBtnShortPressController.dispose();
@@ -318,7 +422,17 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
         children: [
           //icon like
           Transform.scale(
-            scale: this.zoomIconLike.value,
+            scale: isDragging
+                ? (currentIconFocus == 1
+                    ? this.zoomIconChosen.value
+                    : (previousIconFocus == 1
+                        ? this.zoomIconNotChosen.value
+                        : isJustDragInside
+                            ? this.zoomIconWhenDragInside.value
+                            : 0.8))
+                : isDraggingOutside
+                    ? this.zoomIconWhenDragOutside.value
+                    : this.zoomIconLike.value,
             child: Container(
               margin: EdgeInsets.only(bottom: pushIconLikeUp.value, left: 4),
               width: 40.0,
