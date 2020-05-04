@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FacebookLikeDemoPage extends StatelessWidget {
   @override
@@ -32,9 +36,13 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   AnimationController _animBtnShortPressController;
   Animation _zoomIconLikeInBtnShort, _tiltIconLikeInBtnShort;
 
+  AudioPlayer _audioPlayer;
+
   @override
   void initState() {
     super.initState();
+    _audioPlayer = AudioPlayer();
+
     _animBtnShortPressController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _zoomIconLikeInBtnShort =
@@ -52,6 +60,7 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animBtnShortPressController.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -139,6 +148,7 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     }
 
     if (_isLike) {
+      playSound('short_press_like.mp3');
       _animBtnShortPressController.forward();
     } else {
       _animBtnShortPressController.reverse();
@@ -178,5 +188,16 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     } else {
       return 0.8 + value;
     }
+  }
+
+  Future playSound(String fileName) async{
+    await _audioPlayer.stop();
+    final file = File('${(await getTemporaryDirectory()).path}/$fileName');
+    await file.writeAsBytes((await loadAssets(fileName)).buffer.asUint8List());
+    await _audioPlayer.play(file.path,isLocal: true);
+  }
+
+  Future loadAssets(String fileName) async {
+    return await rootBundle.load('sounds/$fileName');
   }
 }
