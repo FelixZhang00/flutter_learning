@@ -28,7 +28,6 @@ class FbReaction extends StatefulWidget {
 class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   bool _isLongPress = false;
   bool _isLike = false;
-  bool _isDragging = false;
   Timer holdTimer;
   Duration durationLongPress = Duration(milliseconds: 250);
   final int durationAnimationBox = 500;
@@ -55,6 +54,27 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
       zoomIconSad,
       zoomIconAngry;
 
+  // For zoom icon when drag
+  AnimationController animControlIconWhenDrag;
+  AnimationController animControlIconWhenDragInside;
+  AnimationController animControlIconWhenDragOutside;
+  AnimationController animControlBoxWhenDragOutside;
+  Animation zoomIconChosen, zoomIconNotChosen;
+  Animation zoomIconWhenDragOutside;
+  Animation zoomIconWhenDragInside;
+  Animation zoomBoxWhenDragOutside;
+  Animation zoomBoxIcon;
+
+  // For jump icon when release
+  AnimationController animControlIconWhenRelease;
+  Animation zoomIconWhenRelease, moveUpIconWhenRelease;
+  Animation moveLeftIconLikeWhenRelease,
+      moveLeftIconLoveWhenRelease,
+      moveLeftIconHahaWhenRelease,
+      moveLeftIconWowWhenRelease,
+      moveLeftIconSadWhenRelease,
+      moveLeftIconAngryWhenRelease;
+
   AudioPlayer _audioPlayer;
 
   // 0 = nothing, 1 = like, 2 = love, 3 = haha, 4 = wow, 5 = sad, 6 = angry
@@ -63,11 +83,24 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   // 0 = nothing, 1 = like, 2 = love, 3 = haha, 4 = wow, 5 = sad, 6 = angry
   int currentIconFocus = 0;
 
+  int previousIconFocus = 0;
+  bool isDragging = false;
+  bool isDraggingOutside = false;
+  bool isJustDragInside = true;
+
   @override
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
 
+    initAnimationBtnLike();
+
+    initAnimationBox();
+
+    initAnimationIconWhenDrag();
+  }
+
+  void initAnimationBtnLike() {
     //for short press
     _animBtnShortPressController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
@@ -101,7 +134,9 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     zoomTextLikeInBtn.addListener(() {
       setState(() {});
     });
+  }
 
+  void initAnimationBox() {
     animControlBox = AnimationController(
         vsync: this, duration: Duration(milliseconds: durationAnimationBox));
     fadeInBox = Tween(begin: 0.0, end: 1.0).animate(
@@ -197,6 +232,28 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     });
   }
 
+  void initAnimationIconWhenDrag() {
+    animControlIconWhenDrag =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+
+    zoomIconChosen =
+        Tween(begin: 1.0, end: 1.8).animate(animControlIconWhenDrag);
+    zoomIconNotChosen =
+        Tween(begin: 1.0, end: 0.8).animate(animControlIconWhenDrag);
+    zoomBoxIcon =
+        Tween(begin: 50.0, end: 40.0).animate(animControlIconWhenDrag);
+
+    zoomIconChosen.addListener(() {
+      setState(() {});
+    });
+    zoomIconNotChosen.addListener(() {
+      setState(() {});
+    });
+    zoomBoxIcon.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   void dispose() {
     _animBtnShortPressController.dispose();
@@ -209,23 +266,25 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        onHorizontalDragEnd: onHorizontalDragEndBoxIcon,
+        onHorizontalDragUpdate: onHorizontalDragUpdateBoxIcon,
         child: Column(children: <Widget>[
-      Container(
-        width: double.infinity,
-        height: 100,
-      ),
-      Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          width: double.infinity,
-          height: 350,
-          child: Stack(children: <Widget>[
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: <Widget>[buildBox(), buildIcons()],
-            ),
-            buildBtnLike()
-          ])),
-    ]));
+          Container(
+            width: double.infinity,
+            height: 100,
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              width: double.infinity,
+              height: 350,
+              child: Stack(children: <Widget>[
+                Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[buildBox(), buildIcons()],
+                ),
+                buildBtnLike()
+              ])),
+        ]));
   }
 
   Widget buildBox() {
@@ -263,7 +322,7 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
             child: Container(
               margin: EdgeInsets.only(bottom: pushIconLikeUp.value, left: 4),
               width: 40.0,
-              height: 40,
+              height: currentIconFocus == 1 ? 70.0 : 40.0,
               child: Column(
                 children: <Widget>[
                   currentIconFocus == 1
@@ -536,7 +595,7 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
   Color getColorBorderBtn() {
     if ((!_isLongPress && _isLike)) {
       return Color(0xff3b5998);
-    } else if (!_isDragging) {
+    } else if (!isDragging) {
       switch (whichIconUserChoose) {
         case 1:
           return Color(0xff3b5998);
@@ -616,6 +675,93 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
 
     setForwardValue();
     animControlBox.forward();
+  }
+
+  //when user end dragging
+  void onHorizontalDragEndBoxIcon(DragEndDetails details) {
+    isDragging = false;
+    isDraggingOutside = false;
+    isJustDragInside = true;
+    previousIconFocus = 0;
+    currentIconFocus = 0;
+
+    onTapUpBtn(null);
+  }
+
+  //when user moves their fingers
+  void onHorizontalDragUpdateBoxIcon(DragUpdateDetails dragUpdateDetail) {
+    // return if the drag is drag without press button
+    if (!_isLongPress) return;
+
+    // the margin top the box is 150
+    // and plus the height of toolbar and the status bar
+    // so the range we check is about 200 -> 500
+
+    if (dragUpdateDetail.globalPosition.dy >= 200 &&
+        dragUpdateDetail.globalPosition.dy <= 500) {
+      isDragging = true;
+      isDraggingOutside = false;
+
+      if (isJustDragInside && !animControlIconWhenDragInside.isAnimating) {
+        animControlIconWhenDragInside.reset();
+        animControlIconWhenDragInside.forward();
+      }
+
+      if (dragUpdateDetail.globalPosition.dx >= 20 &&
+          dragUpdateDetail.globalPosition.dx < 83) {
+        if (currentIconFocus != 1) {
+          handleWhenDragBetweenIcon(1);
+        }
+      } else if (dragUpdateDetail.globalPosition.dx >= 83 &&
+          dragUpdateDetail.globalPosition.dx < 126) {
+        if (currentIconFocus != 2) {
+          handleWhenDragBetweenIcon(2);
+        }
+      } else if (dragUpdateDetail.globalPosition.dx >= 126 &&
+          dragUpdateDetail.globalPosition.dx < 180) {
+        if (currentIconFocus != 3) {
+          handleWhenDragBetweenIcon(3);
+        }
+      } else if (dragUpdateDetail.globalPosition.dx >= 180 &&
+          dragUpdateDetail.globalPosition.dx < 233) {
+        if (currentIconFocus != 4) {
+          handleWhenDragBetweenIcon(4);
+        }
+      } else if (dragUpdateDetail.globalPosition.dx >= 233 &&
+          dragUpdateDetail.globalPosition.dx < 286) {
+        if (currentIconFocus != 5) {
+          handleWhenDragBetweenIcon(5);
+        }
+      } else if (dragUpdateDetail.globalPosition.dx >= 286 &&
+          dragUpdateDetail.globalPosition.dx < 340) {
+        if (currentIconFocus != 6) {
+          handleWhenDragBetweenIcon(6);
+        }
+      }
+    } else {
+      whichIconUserChoose = 0;
+      previousIconFocus = 0;
+      currentIconFocus = 0;
+      isJustDragInside = true;
+
+      if (isDragging && !isDraggingOutside) {
+        isDragging = false;
+        isDraggingOutside = true;
+        animControlIconWhenDragOutside.reset();
+        animControlIconWhenDragOutside.forward();
+        animControlBoxWhenDragOutside.reset();
+        animControlBoxWhenDragOutside.forward();
+      }
+    }
+  }
+
+  void handleWhenDragBetweenIcon(int currentIcon) {
+    playSound('icon_focus.mp3');
+    whichIconUserChoose = currentIcon;
+    previousIconFocus = currentIconFocus;
+    currentIconFocus = currentIcon;
+    animControlIconWhenDrag.reset();
+    animControlIconWhenDrag.forward();
   }
 
   double handleOutputRnageTiltIconLike(double value) {
