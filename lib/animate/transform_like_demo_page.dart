@@ -386,7 +386,26 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[buildBox(), buildIcons()],
                 ),
-                buildBtnLike()
+                buildBtnLike(),
+
+                //icons when jump
+                //icon like
+                whichIconUserChoose == 1 && !isDragging
+                    ? Container(
+                        child: Transform.scale(
+                          scale: this.zoomIconWhenRelease.value,
+                          child: Image.asset(
+                            "assets/like.gif",
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
+                        margin: EdgeInsets.only(
+                            top: processTopPosition(
+                                this.moveUpIconWhenRelease.value),
+                            left: this.moveLeftIconWowWhenRelease.value),
+                      )
+                    : Container(),
               ])),
         ]));
   }
@@ -895,6 +914,14 @@ class _FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
       return 1.6 - value;
     } else {
       return 0.8 + value;
+    }
+  }
+
+  double processTopPosition(double value) {
+    if (value >= 120.0) {
+      return value - 80.0;
+    } else {
+      return 160.0 - value;
     }
   }
 
