@@ -81,3 +81,12 @@ flutter:
     - assets/ufo.png
     - assets/ic_like.png
     - assets/ic_like_fill.png
+
+    - sounds/box_down.mp3
+    - sounds/box_up.mp3
+    - sounds/icon_choose.mp3
+    - sounds/icon_focus.mp3
+    - sounds/short_press_like.mp3
+
+
+
