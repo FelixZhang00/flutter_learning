@@ -7,6 +7,7 @@ import 'animate/animate_transition_page.dart';
 import 'animate/animate_tween_colorfilter_page.dart';
 import 'animate/animate_tween_simple_page.dart';
 import 'animate/animate_widget_page.dart';
+import 'animate/transform_like_demo_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         "animate_transition" : (_)=> AnimateTransitionPage(),
         "animate_builder" : (_)=> AnimateBuilderPage(),
         "animate_widget" : (_)=> AnimateWidgetDemoPage(),
+        "transform_like_demo" : (_)=> FacebookLikeDemoPage(),
       },
       home: HomePage(),
     );

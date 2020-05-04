@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,27 +12,32 @@ class AnimatePage extends StatelessWidget {
         children: [
           ListTile(
             title: Text("Implicit Animations"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_implicit"),
+            onTap: () => Navigator.of(context).pushNamed("animate_implicit"),
           ),
           ListTile(
             title: Text("TweenAnimationBuilder"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_tween"),
+            onTap: () => Navigator.of(context).pushNamed("animate_tween"),
           ),
           ListTile(
             title: Text("TweenAnimationBuilder ColorFilter"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_tween_colorfilter"),
+            onTap: () =>
+                Navigator.of(context).pushNamed("animate_tween_colorfilter"),
           ),
           ListTile(
             title: Text("Transition widgets"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_transition"),
+            onTap: () => Navigator.of(context).pushNamed("animate_transition"),
           ),
           ListTile(
             title: Text("Animate Builder"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_builder"),
+            onTap: () => Navigator.of(context).pushNamed("animate_builder"),
           ),
           ListTile(
             title: Text("Animate Widget"),
-            onTap: ()=> Navigator.of(context).pushNamed("animate_widget"),
+            onTap: () => Navigator.of(context).pushNamed("animate_widget"),
+          ),
+          ListTile(
+            title: Text("facebook like transform demo"),
+            onTap: () => Navigator.of(context).pushNamed("transform_like_demo"),
           )
         ],
       ),
