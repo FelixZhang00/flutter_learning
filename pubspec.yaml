@@ -79,3 +79,5 @@ flutter:
     - assets/ic_saturn.png
     - assets/sun.png
     - assets/ufo.png
+    - assets/ic_like.png
+    - assets/ic_like_fill.png
