@@ -40,13 +40,15 @@ class _AnimateImplicitWidgetState extends State<AnimateImplicitWidget> {
                     stops: [_bigger ? 0.2 : 0.5, 1.0])),
           ),
           RaisedButton(
-            onPressed: () => setState(() {
-              _bigger = !_bigger;
-            }),
+            onPressed: _onPress,
             child: Icon(Icons.star),
           )
         ],
       ),
     );
   }
+
+  void _onPress() => setState(() {
+        _bigger = !_bigger;
+      });
 }
