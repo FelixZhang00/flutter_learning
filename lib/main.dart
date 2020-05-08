@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/opengl/opengl_page.dart';
+import 'package:flutter_learning/platform_channel/platform_channel_page.dart';
 
 import 'animate/animate_builder_page.dart';
 import 'animate/animate_implicit_page.dart';
@@ -9,7 +10,7 @@ import 'animate/animate_tween_colorfilter_page.dart';
 import 'animate/animate_tween_simple_page.dart';
 import 'animate/animate_widget_page.dart';
 import 'animate/transform_like_demo_page.dart';
-import 'opengl/opengl_demo_page.dart';
+import 'platform_channel/method_channel_demo_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,8 +47,9 @@ class MyApp extends StatelessWidget {
         "animate_builder" : (_)=> AnimateBuilderPage(),
         "animate_widget" : (_)=> AnimateWidgetDemoPage(),
         "transform_like_demo" : (_)=> FacebookLikeDemoPage(),
+        "/platform_channel":(_)=> PlatformChannelPage(),
+        "/platform_channel/method_channel_demo_page" : (_)=> MethodChannelDemoPage(),
         "/opengl":(_)=> OpenGlPage(),
-        "/opengl/opengl_demo_page" : (_)=> OpenGlDemoPage(),
       },
       home: HomePage(),
     );
@@ -67,6 +69,10 @@ class HomePage extends StatelessWidget {
           ListTile(
             title: Text("Animate"),
             onTap: ()=> Navigator.of(context).pushNamed("animate"),
+          ),
+          ListTile(
+            title: Text("platform channel"),
+            onTap: ()=> Navigator.of(context).pushNamed("/platform_channel"),
           ),
           ListTile(
             title: Text("OpenGl"),
