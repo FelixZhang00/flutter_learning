@@ -10,9 +10,9 @@ class OpenGlPage extends StatelessWidget {
         ),
         body: Column(children: [
           ListTile(
-            title: Text("opengl demo"),
+            title: Text("opengl texture"),
             onTap: () =>
-                Navigator.of(context).pushNamed("/opengl/opengl_demo_page"),
+                Navigator.of(context).pushNamed("/opengl/opengl_texture_page"),
           ),
         ]));
   }

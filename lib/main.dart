@@ -10,6 +10,7 @@ import 'animate/animate_tween_colorfilter_page.dart';
 import 'animate/animate_tween_simple_page.dart';
 import 'animate/animate_widget_page.dart';
 import 'animate/transform_like_demo_page.dart';
+import 'opengl/opengl_texture_page.dart';
 import 'platform_channel/method_channel_demo_page.dart';
 
 void main() {
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         "/platform_channel":(_)=> PlatformChannelPage(),
         "/platform_channel/method_channel_demo_page" : (_)=> MethodChannelDemoPage(),
         "/opengl":(_)=> OpenGlPage(),
+        "/opengl/opengl_texture_page":(_)=> OpenGlTexturePage(),
       },
       home: HomePage(),
     );
