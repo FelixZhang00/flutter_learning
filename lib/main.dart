@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/dynamic/dynamic_page.dart';
 import 'package:flutter_learning/opengl/opengl_page.dart';
 import 'package:flutter_learning/platform_channel/platform_channel_page.dart';
 
@@ -10,6 +11,7 @@ import 'animate/animate_tween_colorfilter_page.dart';
 import 'animate/animate_tween_simple_page.dart';
 import 'animate/animate_widget_page.dart';
 import 'animate/transform_like_demo_page.dart';
+import 'dynamic/dynamic_widget_page.dart';
 import 'opengl/opengl_texture_page.dart';
 import 'platform_channel/method_channel_demo_page.dart';
 
@@ -52,6 +54,8 @@ class MyApp extends StatelessWidget {
         "/platform_channel/method_channel_demo_page" : (_)=> MethodChannelDemoPage(),
         "/opengl":(_)=> OpenGlPage(),
         "/opengl/opengl_texture_page":(_)=> OpenGlTexturePage(),
+        "/dynamic":(_)=> DynamicPage(),
+        "/dynamic/dynamic_widget":(_)=> DynamicWidgetPage(),
       },
       home: HomePage(),
     );
@@ -79,6 +83,10 @@ class HomePage extends StatelessWidget {
           ListTile(
             title: Text("OpenGl"),
             onTap: ()=> Navigator.of(context).pushNamed("/opengl"),
+          ),
+          ListTile(
+            title: Text("Dynamic"),
+            onTap: ()=> Navigator.of(context).pushNamed("/dynamic"),
           )
         ],
       ),
